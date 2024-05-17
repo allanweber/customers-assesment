@@ -1,5 +1,6 @@
 package com.allanweber.customers.customer;
 
+import com.allanweber.customers.validations.NotUniqueUserNameException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

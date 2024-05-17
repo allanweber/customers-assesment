@@ -35,10 +35,10 @@ docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=cust
 - [X] Customer must provide a unique username.
 - [X] Default passwordGenerator must be generated.
 - [X] Only customers above 18 years of age are allowed to register and create an account.
-- [ ] Only customers from the Netherlands and Belgium are allowed to register and create an account.
-- [ ] It should be possible to add new countries in the allowed list ‘easily’.
+- [X] Only customers from the Netherlands and Belgium are allowed to register and create an account.
+- [X] It should be possible to add new countries in the allowed list ‘easily’.
 - [ ] Once the customer is registered, Unique IBAN account number should be automatically assigned as per NL IBAN format.
-- [ ] Authenticate customer with username and passwordGenerator.
+- [ ] Authenticate customer with username and password.
 - [ ] Customer must be able to see some account details like account balance and type of account.
 - [ ] Create Swagger OpenAPI documentation.
 - [ ] Postman collection which covers different scenarios

@@ -1,7 +1,6 @@
-package com.allanweber.customers.register;
+package com.allanweber.customers.validations;
 
 import com.allanweber.customers.customer.CustomerService;
-import com.allanweber.customers.customer.NotUniqueUserNameException;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;

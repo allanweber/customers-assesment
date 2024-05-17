@@ -8,7 +8,6 @@ import com.allanweber.customers.customer.CustomerRepository;
 import com.allanweber.customers.register.CustomerSignUp;
 import com.allanweber.customers.register.SignUpResponse;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +125,26 @@ class RegisterControllerTest {
                     assertThat(response.get("errors")).hasSize(1);
                     assertThat(response.get("errors")).containsExactlyInAnyOrder(
                             "You must be at least 18 years old");
+                });
+    }
+
+    @DisplayName("Customer that is not from an allowed country returns a error")
+    @Test
+    void notAllowedCountry() {
+        CustomerAddress address = new CustomerAddress("UK", "1234", "1");
+        CustomerSignUp signUp = new CustomerSignUp("username", "name", LocalDate.now().minusYears(20), "123456", address);
+        webTestClient.post()
+                .uri("/register")
+                .bodyValue(signUp)
+                .exchange()
+                .expectStatus()
+                .isBadRequest()
+                .expectBody(new ParameterizedTypeReference<Map<String, List<String>>>() {
+                })
+                .value(response -> {
+                    assertThat(response.get("errors")).hasSize(1);
+                    assertThat(response.get("errors")).containsExactlyInAnyOrder(
+                            "Only customer from NL or BE are allowed");
                 });
     }
 }

@@ -1,4 +1,4 @@
-package com.allanweber.customers.customer;
+package com.allanweber.customers.validations;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

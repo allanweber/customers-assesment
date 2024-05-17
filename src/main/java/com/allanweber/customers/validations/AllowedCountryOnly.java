@@ -1,4 +1,4 @@
-package com.allanweber.customers.register;
+package com.allanweber.customers.validations;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueUserNameValidator.class)
-public @interface UniqueUserName {
-    String message() default "Username already taken";
+@Constraint(validatedBy = AllowedCountryOnlyValidator.class)
+public @interface AllowedCountryOnly {
+    String message() default "Country not allowed";
 
     Class<?>[] groups() default {};
 

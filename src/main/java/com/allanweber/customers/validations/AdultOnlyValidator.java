@@ -1,4 +1,4 @@
-package com.allanweber.customers.register;
+package com.allanweber.customers.validations;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

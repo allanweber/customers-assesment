@@ -1,5 +1,6 @@
 package com.allanweber.customers.customer;
 
+import com.allanweber.customers.validations.NotUniqueUserNameException;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,6 +1,7 @@
-package com.allanweber.customers.register;
+package com.allanweber.customers.validations;
 
 import com.allanweber.customers.customer.CustomerService;
+import com.allanweber.customers.validations.UniqueUserNameValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,6 +1,8 @@
 package com.allanweber.customers.register;
 
 import com.allanweber.customers.customer.CustomerAddress;
+import com.allanweber.customers.validations.AdultOnly;
+import com.allanweber.customers.validations.UniqueUserName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

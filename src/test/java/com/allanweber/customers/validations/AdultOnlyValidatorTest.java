@@ -1,5 +1,6 @@
-package com.allanweber.customers.register;
+package com.allanweber.customers.validations;
 
+import com.allanweber.customers.validations.AdultOnlyValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
