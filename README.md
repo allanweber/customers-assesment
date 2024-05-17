@@ -24,22 +24,22 @@ docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=cust
 * Spring Security
 * Spring Data JDBC
 * MySQL
-* Testcontainers
+* Test containers
 * PMD
 * Jacoco
 * Lombok
 
 ## Features
 
-- [ ] Register customer with basic details: name, address, date of birth, ID document and username.
-- [ ] Customer must provide a unique username.
-- [ ] Once the customer is registered, Unique IBAN account number should be automatically assigned as per NL IBAN format.
-- [ ] Default passwordGenerator must be generated.
-- [ ] Authenticate customer with username and passwordGenerator.
-- [ ] Customer must be able to see some account details like account balance and type of account.
+- [X] Register customer with basic details: name, address, date of birth, ID document and username.
+- [X] Customer must provide a unique username.
+- [X] Default passwordGenerator must be generated.
+- [ ] Only customers above 18 years of age are allowed to register and create an account.
 - [ ] Only customers from the Netherlands and Belgium are allowed to register and create an account.
 - [ ] It should be possible to add new countries in the allowed list ‘easily’.
-- [ ] Only customers above 18 years of age are allowed to register and create an account.
+- [ ] Once the customer is registered, Unique IBAN account number should be automatically assigned as per NL IBAN format.
+- [ ] Authenticate customer with username and passwordGenerator.
+- [ ] Customer must be able to see some account details like account balance and type of account.
 - [ ] Create Swagger OpenAPI documentation.
 - [ ] Postman collection which covers different scenarios
 - [ ] Assume existing database is legacy and cannot handle more than 2 requests per second. Make sure API is not putting load on DB.

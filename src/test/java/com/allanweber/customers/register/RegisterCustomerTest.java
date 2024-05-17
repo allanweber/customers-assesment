@@ -1,9 +1,6 @@
 package com.allanweber.customers.register;
 
-import com.allanweber.customers.customer.Customer;
-import com.allanweber.customers.customer.CustomerAccount;
-import com.allanweber.customers.customer.CustomerAddress;
-import com.allanweber.customers.customer.CustomerRepository;
+import com.allanweber.customers.customer.*;
 import com.allanweber.customers.infrastructure.IbanGenerator;
 import com.allanweber.customers.infrastructure.PasswordGenerator;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +22,7 @@ import static org.mockito.Mockito.when;
 class RegisterCustomerTest {
 
     @Mock
-    CustomerRepository customerRepository;
+    CustomerService customerService;
 
     @Mock
     PasswordGenerator passwordGenerator;
@@ -47,7 +44,7 @@ class RegisterCustomerTest {
 
         List<CustomerAccount> accounts = singletonList(new CustomerAccount(1,"IBAN-123", "acc", "EUR"));
         Customer customer = new Customer(1,signUp.username(), signUp.name(), signUp.dateOfBirth(), signUp.documentNumber(), "123456798", singletonList(address), accounts);
-        when(customerRepository.save(any())).thenReturn(customer);
+        when(customerService.save(any())).thenReturn(customer);
 
         SignUpResponse response = registerCustomer.signUp(signUp);
 

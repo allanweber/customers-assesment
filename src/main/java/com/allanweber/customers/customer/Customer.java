@@ -1,6 +1,7 @@
 package com.allanweber.customers.customer;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -9,20 +10,24 @@ public class Customer {
     @Id
     private Integer id;
 
-    private final String username;
+    private String username;
 
-    private final String name;
+    private String name;
 
-    private final LocalDate dateOfBirth;
+    private LocalDate dateOfBirth;
 
-    private final String documentNumber;
+    private String documentNumber;
 
-    private final String password;
+    private String password;
 
-    private final List<CustomerAddress> customerAddresses;
+    private List<CustomerAddress> customerAddresses;
 
-    private final List<CustomerAccount> customerAccounts;
+    private List<CustomerAccount> customerAccounts;
 
+    public Customer() {
+    }
+
+    @PersistenceCreator
     public Customer(Integer id, String username, String name, LocalDate dateOfBirth, String documentNumber, String password, List<CustomerAddress> customerAddresses, List<CustomerAccount> customerAccounts) {
         this.id = id;
         this.username = username;

@@ -6,11 +6,14 @@ public class CustomerAccount {
 
     @Id
     private Integer id;
-    private final String iban;
+    private String iban;
 
-    private final String type;
+    private String type;
 
-    private final String currency;
+    private String currency;
+
+    public CustomerAccount() {
+    }
 
     public CustomerAccount(String iban, String type, String currency) {
         this.iban = iban;

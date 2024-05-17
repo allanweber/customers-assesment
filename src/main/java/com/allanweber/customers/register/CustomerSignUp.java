@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record CustomerSignUp(
-        @NotBlank(message = "Username is required") String username,
+        @NotBlank(message = "Username is required") @UniqueUserName String username,
         @NotBlank(message = "Name is required") String name,
         @NotNull(message = "Date is required")
         @JsonFormat(pattern = "dd-MM-yyyy")
