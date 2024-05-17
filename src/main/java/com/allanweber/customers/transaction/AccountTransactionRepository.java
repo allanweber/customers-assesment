@@ -1,4 +1,4 @@
-package com.allanweber.customers;
+package com.allanweber.customers.transaction;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

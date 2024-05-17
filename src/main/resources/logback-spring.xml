@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="environment" value="${ENVIRONMENT:-DEFAULT}" />
+    <springProperty name="service" source="spring.application.name" />
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <param name="pattern" value="%cyan(%d{HH:mm:ss.SSS}) %highlight(%-5level) [%magenta(%t)] %yellow(%class{0}.%M %L): %msg%n%throwable" />
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="Console" />
+    </root>
+</configuration>

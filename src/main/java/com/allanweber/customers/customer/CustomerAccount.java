@@ -1,4 +1,4 @@
-package com.allanweber.customers;
+package com.allanweber.customers.customer;
 
 import org.springframework.data.annotation.Id;
 
@@ -23,22 +23,6 @@ public class CustomerAccount {
         this.iban = iban;
         this.type = type;
         this.currency = currency;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getIban() {
-        return iban;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getCurrency() {
-        return currency;
     }
 
     @Override

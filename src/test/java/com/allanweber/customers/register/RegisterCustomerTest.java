@@ -1,0 +1,57 @@
+package com.allanweber.customers.register;
+
+import com.allanweber.customers.customer.Customer;
+import com.allanweber.customers.customer.CustomerAccount;
+import com.allanweber.customers.customer.CustomerAddress;
+import com.allanweber.customers.customer.CustomerRepository;
+import com.allanweber.customers.infrastructure.IbanGenerator;
+import com.allanweber.customers.infrastructure.PasswordGenerator;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class RegisterCustomerTest {
+
+    @Mock
+    CustomerRepository customerRepository;
+
+    @Mock
+    PasswordGenerator passwordGenerator;
+
+    @Mock
+    IbanGenerator ibanGenerator;
+
+    @InjectMocks
+    RegisterCustomer registerCustomer;
+
+    @DisplayName("Register a new customer")
+    @Test
+    void register() {
+        CustomerAddress address = new CustomerAddress("NL", "1234", "1");
+        CustomerSignUp signUp = new CustomerSignUp("username", "name", LocalDate.now().minusYears(20), "123456", address);
+
+        when(ibanGenerator.generate()).thenReturn("NL29ABNA3667086008");
+        when(passwordGenerator.generate()).thenReturn("123456798");
+
+        List<CustomerAccount> accounts = singletonList(new CustomerAccount(1,"IBAN-123", "acc", "EUR"));
+        Customer customer = new Customer(1,signUp.username(), signUp.name(), signUp.dateOfBirth(), signUp.documentNumber(), "123456798", singletonList(address), accounts);
+        when(customerRepository.save(any())).thenReturn(customer);
+
+        SignUpResponse response = registerCustomer.signUp(signUp);
+
+        assertThat(response.username()).isEqualTo("username");
+        assertThat(response.password()).isEqualTo("123456798");
+    }
+}

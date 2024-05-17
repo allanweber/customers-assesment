@@ -1,4 +1,4 @@
-package com.allanweber.customers;
+package com.allanweber.customers.transaction;
 
 import org.springframework.data.annotation.Id;
 
@@ -24,18 +24,6 @@ public class AccountTransaction {
     }
 
     public AccountTransaction() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public Integer getAccount() {
-        return account;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
     }
 
     @Override

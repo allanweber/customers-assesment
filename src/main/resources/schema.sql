@@ -2,8 +2,7 @@
 CREATE TABLE IF NOT EXISTS customer (
   id INT PRIMARY KEY AUTO_INCREMENT,
   username VARCHAR(254) NOT NULL,
-  first_name VARCHAR(254) NOT NULL,
-  last_name VARCHAR(254) NOT NULL,
+  name VARCHAR(254) NOT NULL,
   date_of_birth DATE NOT NULL,
   document_number VARCHAR(20) NOT NULL,
   password VARCHAR(254) NOT NULL,

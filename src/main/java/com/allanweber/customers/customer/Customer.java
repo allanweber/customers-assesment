@@ -1,4 +1,4 @@
-package com.allanweber.customers;
+package com.allanweber.customers.customer;
 
 import org.springframework.data.annotation.Id;
 
@@ -11,9 +11,7 @@ public class Customer {
 
     private final String username;
 
-    private final String firstName;
-
-    private final String lastName;
+    private final String name;
 
     private final LocalDate dateOfBirth;
 
@@ -25,11 +23,10 @@ public class Customer {
 
     private final List<CustomerAccount> customerAccounts;
 
-    public Customer(Integer id, String username, String firstName, String lastName, LocalDate dateOfBirth, String documentNumber, String password, List<CustomerAddress> customerAddresses, List<CustomerAccount> customerAccounts) {
+    public Customer(Integer id, String username, String name, LocalDate dateOfBirth, String documentNumber, String password, List<CustomerAddress> customerAddresses, List<CustomerAccount> customerAccounts) {
         this.id = id;
         this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.documentNumber = documentNumber;
         this.password = password;
@@ -37,51 +34,18 @@ public class Customer {
         this.customerAccounts = customerAccounts;
     }
 
-    public Customer(String username, String firstName, String lastName, LocalDate dateOfBirth, String documentNumber, String password, List<CustomerAddress> customerAddresses, List<CustomerAccount> customerAccounts) {
+    public Customer(String username, String name, LocalDate dateOfBirth, String documentNumber, String password, List<CustomerAddress> customerAddresses, List<CustomerAccount> customerAccounts) {
         this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.documentNumber = documentNumber;
         this.password = password;
         this.customerAddresses = customerAddresses;
         this.customerAccounts = customerAccounts;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getUsername() {
         return username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getDocumentNumber() {
-        return documentNumber;
-    }
-
-    public List<CustomerAddress> getCustomerAddresses() {
-        return customerAddresses;
-    }
-
-    public List<CustomerAccount> getCustomerAccounts() {
-        return customerAccounts;
     }
 
     @Override
@@ -89,10 +53,10 @@ public class Customer {
         return "Customer{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + name + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", documentNumber='" + documentNumber + '\'' +
+                ", password='" + password + '\'' +
                 ", customerAddresses=" + customerAddresses +
                 ", customerAccounts=" + customerAccounts +
                 '}';
