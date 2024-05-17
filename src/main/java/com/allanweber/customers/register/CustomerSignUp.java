@@ -13,6 +13,7 @@ public record CustomerSignUp(
         @NotBlank(message = "Name is required") String name,
         @NotNull(message = "Date is required")
         @JsonFormat(pattern = "dd-MM-yyyy")
+        @AdultOnly
         LocalDate dateOfBirth,
         @NotBlank(message = "Document is required") String documentNumber,
         @NotNull(message = "Address is required") @Valid CustomerAddress address

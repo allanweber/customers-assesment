@@ -34,7 +34,7 @@ docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=cust
 - [X] Register customer with basic details: name, address, date of birth, ID document and username.
 - [X] Customer must provide a unique username.
 - [X] Default passwordGenerator must be generated.
-- [ ] Only customers above 18 years of age are allowed to register and create an account.
+- [X] Only customers above 18 years of age are allowed to register and create an account.
 - [ ] Only customers from the Netherlands and Belgium are allowed to register and create an account.
 - [ ] It should be possible to add new countries in the allowed list ‘easily’.
 - [ ] Once the customer is registered, Unique IBAN account number should be automatically assigned as per NL IBAN format.

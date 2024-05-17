@@ -107,4 +107,25 @@ class RegisterControllerTest {
                             "Username already taken");
                 });
     }
+
+    @DisplayName("A minor Customer is invalid")
+    @Test
+    void minor() {
+        CustomerAddress address = new CustomerAddress("NL", "1234", "1");
+        CustomerSignUp signUp = new CustomerSignUp("username", "name", LocalDate.now().minusYears(17), "123456", address);
+
+        webTestClient.post()
+                .uri("/register")
+                .bodyValue(signUp)
+                .exchange()
+                .expectStatus()
+                .isBadRequest()
+                .expectBody(new ParameterizedTypeReference<Map<String, List<String>>>() {
+                })
+                .value(response -> {
+                    assertThat(response.get("errors")).hasSize(1);
+                    assertThat(response.get("errors")).containsExactlyInAnyOrder(
+                            "You must be at least 18 years old");
+                });
+    }
 }
