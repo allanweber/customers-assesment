@@ -37,7 +37,7 @@ docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=cust
 - [X] Only customers above 18 years of age are allowed to register and create an account.
 - [X] Only customers from the Netherlands and Belgium are allowed to register and create an account.
 - [X] It should be possible to add new countries in the allowed list ‘easily’.
-- [ ] Once the customer is registered, Unique IBAN account number should be automatically assigned as per NL IBAN format.
+- [X] Once the customer is registered, Unique IBAN account number should be automatically assigned as per NL IBAN format.
 - [ ] Authenticate customer with username and password.
 - [ ] Customer must be able to see some account details like account balance and type of account.
 - [ ] Create Swagger OpenAPI documentation.

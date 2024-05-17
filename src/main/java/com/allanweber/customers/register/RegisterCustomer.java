@@ -28,7 +28,7 @@ public class RegisterCustomer {
     }
 
     public SignUpResponse signUp(CustomerSignUp customerSignUp) {
-        String iban = ibanGenerator.generate();
+        String iban = ibanGenerator.generate(customerSignUp.address().country());
         String password = passwordGenerator.generate();
 
         Customer customer = mapToCustomer(customerSignUp, iban, password);

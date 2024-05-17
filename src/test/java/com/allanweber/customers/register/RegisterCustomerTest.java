@@ -39,7 +39,7 @@ class RegisterCustomerTest {
         CustomerAddress address = new CustomerAddress("NL", "1234", "1");
         CustomerSignUp signUp = new CustomerSignUp("username", "name", LocalDate.now().minusYears(20), "123456", address);
 
-        when(ibanGenerator.generate()).thenReturn("NL29ABNA3667086008");
+        when(ibanGenerator.generate("NL")).thenReturn("NL29ABNA3667086008");
         when(passwordGenerator.generate()).thenReturn("123456798");
 
         List<CustomerAccount> accounts = singletonList(new CustomerAccount(1,"IBAN-123", "acc", "EUR"));
