@@ -1,8 +1,8 @@
 package com.allanweber.customers.register;
 
 import com.allanweber.customers.customer.*;
-import com.allanweber.customers.infrastructure.IbanGenerator;
-import com.allanweber.customers.infrastructure.PasswordGenerator;
+import com.allanweber.customers.customer.IbanGenerator;
+import com.allanweber.customers.authentication.PasswordGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

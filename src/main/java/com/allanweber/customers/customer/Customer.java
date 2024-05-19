@@ -53,6 +53,10 @@ public class Customer {
         return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +

@@ -4,8 +4,8 @@ import com.allanweber.customers.customer.Customer;
 import com.allanweber.customers.customer.CustomerAccount;
 import com.allanweber.customers.customer.CustomerAddress;
 import com.allanweber.customers.customer.CustomerService;
-import com.allanweber.customers.infrastructure.IbanGenerator;
-import com.allanweber.customers.infrastructure.PasswordGenerator;
+import com.allanweber.customers.customer.IbanGenerator;
+import com.allanweber.customers.authentication.PasswordGenerator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

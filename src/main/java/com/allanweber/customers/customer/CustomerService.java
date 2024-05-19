@@ -3,6 +3,8 @@ package com.allanweber.customers.customer;
 import com.allanweber.customers.validations.NotUniqueUserNameException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService {
 
@@ -19,7 +21,11 @@ public class CustomerService {
         throw new NotUniqueUserNameException();
     }
 
+    public Optional<Customer> findByUsername(String username) {
+        return customerRepository.findByUsername(username);
+    }
+
     public boolean isUniqueUserName(String username) {
-        return customerRepository.findByUsername(username).isEmpty();
+        return findByUsername(username).isEmpty();
     }
 }

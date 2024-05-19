@@ -1,6 +1,5 @@
-package com.allanweber.customers.infrastructure;
+package com.allanweber.customers.customer;
 
-import com.allanweber.customers.customer.CustomerAccountRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;

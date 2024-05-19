@@ -30,6 +30,7 @@
         <exclude name="FinalFieldCouldBeStatic" />
         <exclude name="UseUtilityClass" />
         <exclude name="DataClass" />
+        <exclude name="SignatureDeclareThrowsException" />
     </rule>
     <rule ref="category/java/documentation.xml">
         <exclude name="UncommentedEmptyConstructor" />

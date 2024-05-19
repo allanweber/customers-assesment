@@ -7,7 +7,7 @@ import java.util.List;
 
 @ConfigurationProperties("customers.countries")
 @Configuration
-public class AvailableCountries {
+public class AvailableCountriesProperties {
 
     private List<String> available;
 

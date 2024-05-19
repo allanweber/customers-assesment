@@ -1,5 +1,6 @@
-package com.allanweber.customers.infrastructure;
+package com.allanweber.customers.authentication;
 
+import com.allanweber.customers.authentication.PasswordGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

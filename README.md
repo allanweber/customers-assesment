@@ -18,6 +18,12 @@ Register and overview of customers.
 docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=customers -e MYSQL_USER=customer -e MYSQL_PASSWORD=customer -p 3306:3306 mysql:8.4
 ```
 
+### Generate a new JWT secret
+
+```bash
+openssl rand -base64 16
+```
+
 ## Important Dependencies
 
 * Spring Boot
@@ -27,7 +33,6 @@ docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=cust
 * Test containers
 * PMD
 * Jacoco
-* Lombok
 
 ## Features
 
@@ -38,7 +43,7 @@ docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=cust
 - [X] Only customers from the Netherlands and Belgium are allowed to register and create an account.
 - [X] It should be possible to add new countries in the allowed list ‘easily’.
 - [X] Once the customer is registered, Unique IBAN account number should be automatically assigned as per NL IBAN format.
-- [ ] Authenticate customer with username and password.
+- [X] Authenticate customer with username and password.
 - [ ] Customer must be able to see some account details like account balance and type of account.
 - [ ] Create Swagger OpenAPI documentation.
 - [ ] Postman collection which covers different scenarios

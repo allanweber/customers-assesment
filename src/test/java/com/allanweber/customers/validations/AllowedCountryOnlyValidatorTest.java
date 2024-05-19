@@ -1,7 +1,5 @@
 package com.allanweber.customers.validations;
 
-import com.allanweber.customers.validations.AllowedCountryOnlyValidator;
-import com.allanweber.customers.validations.AvailableCountries;
 import jakarta.validation.ConstraintValidatorContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +19,7 @@ import static org.mockito.Mockito.*;
 class AllowedCountryOnlyValidatorTest {
 
     @Mock
-    AvailableCountries availableCountries;
+    AvailableCountriesProperties availableCountriesProperties;
 
     @InjectMocks
     AllowedCountryOnlyValidator allowedCountryOnlyValidator;
@@ -36,7 +34,7 @@ class AllowedCountryOnlyValidatorTest {
         lenient().when(constraintContext.buildConstraintViolationWithTemplate(anyString()))
                 .thenReturn(constraintViolationBuilder);
 
-        when(availableCountries.getAvailable()).thenReturn(asList("NL", "BE"));
+        when(availableCountriesProperties.getAvailable()).thenReturn(asList("NL", "BE"));
     }
 
     @DisplayName("Given valid countries return true")

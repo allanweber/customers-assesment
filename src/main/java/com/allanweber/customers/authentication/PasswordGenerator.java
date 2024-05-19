@@ -1,4 +1,4 @@
-package com.allanweber.customers.infrastructure;
+package com.allanweber.customers.authentication;
 
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;

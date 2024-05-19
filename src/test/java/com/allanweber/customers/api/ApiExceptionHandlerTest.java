@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -27,9 +28,9 @@ class ApiExceptionHandlerTest {
     void handleClientExceptionNoMessage() {
         ResponseEntity<Map<String, String>> response = apiExceptionHandler.handleClientException(
                 new HttpClientErrorException(HttpStatus.NOT_FOUND));
-        assertEquals(404, response.getStatusCode().value());
-        assertTrue(Objects.requireNonNull(response.getBody()).containsKey("error"));
-        assertEquals("NOT_FOUND", Objects.requireNonNull(response.getBody()).get("error"));
+
+        assertThat(response.getStatusCode().value()).isEqualTo(404);
+        assertThat(Objects.requireNonNull(response.getBody()).get("error")).isEqualTo("NOT_FOUND");
     }
 
     @Test
@@ -37,9 +38,9 @@ class ApiExceptionHandlerTest {
     void handleClientExceptionWithMessage() {
         ResponseEntity<Map<String, String>> response = apiExceptionHandler.handleClientException(
                 new HttpClientErrorException(HttpStatus.BAD_REQUEST, "any message"));
-        assertEquals(400, response.getStatusCode().value());
-        assertTrue(Objects.requireNonNull(response.getBody()).containsKey("error"));
-        assertEquals("any message", Objects.requireNonNull(response.getBody()).get("error"));
+
+        assertThat(response.getStatusCode().value()).isEqualTo(400);
+        assertThat(Objects.requireNonNull(response.getBody()).get("error")).isEqualTo("any message");
     }
 
     @Test
@@ -47,9 +48,8 @@ class ApiExceptionHandlerTest {
     void handleException() {
         ResponseEntity<Map<String, String>> response = apiExceptionHandler
                 .handleException(new RuntimeException("any message"));
-        assertEquals(500, response.getStatusCode().value());
-        assertTrue(Objects.requireNonNull(response.getBody()).containsKey("error"));
-        assertEquals("any message", Objects.requireNonNull(response.getBody()).get("error"));
+        assertThat(response.getStatusCode().value()).isEqualTo(500);
+        assertThat(Objects.requireNonNull(response.getBody()).get("error")).isEqualTo("any message");
     }
 
     @Test
@@ -58,9 +58,16 @@ class ApiExceptionHandlerTest {
         RuntimeException causeMessage = new RuntimeException("cause message");
         ResponseEntity<Map<String, String>> response = apiExceptionHandler
                 .handleException(new RuntimeException("any message", causeMessage));
-        assertEquals(500, response.getStatusCode().value());
-        assertTrue(Objects.requireNonNull(response.getBody()).containsKey("error"));
-        assertEquals("cause message", Objects.requireNonNull(response.getBody()).get("error"));
+        assertThat(response.getStatusCode().value()).isEqualTo(500);
+        assertThat(Objects.requireNonNull(response.getBody()).get("error")).isEqualTo("cause message");
+    }
+
+    @Test
+    @DisplayName("When handle UsernameNotFoundException return message and status 401")
+    void handleUsernameNotFoundException() {
+        ResponseEntity<Map<String, String>> response = apiExceptionHandler.handleException(new UsernameNotFoundException("cause message"));
+        assertThat(response.getStatusCode().value()).isEqualTo(401);
+        assertThat(Objects.requireNonNull(response.getBody()).get("error")).isEqualTo("cause message");
     }
 
     @Test
@@ -79,8 +86,7 @@ class ApiExceptionHandlerTest {
 
         ResponseEntity<Map<String, List<String>>> response = apiExceptionHandler.handleMethodArgumentNotValidException(ex);
 
-        assertEquals(400, response.getStatusCode().value());
-        assertTrue(Objects.requireNonNull(response.getBody()).containsKey("errors"));
-        assertEquals("default message", Objects.requireNonNull(response.getBody()).get("errors").get(0));
+        assertThat(response.getStatusCode().value()).isEqualTo(400);
+        assertThat(Objects.requireNonNull(response.getBody()).get("errors").get(0)).isEqualTo("default message");
     }
 }

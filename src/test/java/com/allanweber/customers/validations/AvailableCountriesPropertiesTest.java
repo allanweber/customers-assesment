@@ -1,6 +1,5 @@
 package com.allanweber.customers.validations;
 
-import com.allanweber.customers.validations.AvailableCountries;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,18 +12,18 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@EnableConfigurationProperties(AvailableCountries.class)
+@EnableConfigurationProperties(AvailableCountriesProperties.class)
 @TestPropertySource(properties = "customers.countries.available=GB,PT")
 @ExtendWith(SpringExtension.class)
-class AvailableCountriesTest {
+class AvailableCountriesPropertiesTest {
 
     @Autowired
-    AvailableCountries availableCountries;
+    AvailableCountriesProperties availableCountriesProperties;
 
     @DisplayName("Check the available countries")
     @Test
     void allowed() {
-        List<String> allowed = availableCountries.getAvailable();
+        List<String> allowed = availableCountriesProperties.getAvailable();
         assertThat(allowed).containsExactly("GB", "PT");
     }
 }

@@ -9,17 +9,17 @@ import java.util.Locale;
 @Component
 public class AllowedCountryOnlyValidator implements ConstraintValidator<AllowedCountryOnly, String> {
 
-    private final AvailableCountries availableCountries;
+    private final AvailableCountriesProperties availableCountriesProperties;
     private final String countries;
 
-    public AllowedCountryOnlyValidator(AvailableCountries availableCountries) {
-        this.availableCountries = availableCountries;
-        countries = String.join(" or ", availableCountries.getAvailable());
+    public AllowedCountryOnlyValidator(AvailableCountriesProperties availableCountriesProperties) {
+        this.availableCountriesProperties = availableCountriesProperties;
+        countries = String.join(" or ", availableCountriesProperties.getAvailable());
     }
 
     @Override
     public boolean isValid(String country, ConstraintValidatorContext context) {
-        boolean isValid = availableCountries.getAvailable().contains(country.toUpperCase(Locale.getDefault()));
+        boolean isValid = availableCountriesProperties.getAvailable().contains(country.toUpperCase(Locale.getDefault()));
         if (!isValid) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(String.format("Only customer from %s are allowed", countries)).addConstraintViolation();

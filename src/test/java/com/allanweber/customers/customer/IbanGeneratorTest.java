@@ -1,7 +1,8 @@
-package com.allanweber.customers.infrastructure;
+package com.allanweber.customers.customer;
 
 import com.allanweber.customers.customer.CustomerAccount;
 import com.allanweber.customers.customer.CustomerAccountRepository;
+import com.allanweber.customers.customer.IbanGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

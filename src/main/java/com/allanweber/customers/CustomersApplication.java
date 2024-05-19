@@ -1,11 +1,12 @@
 package com.allanweber.customers;
 
-import com.allanweber.customers.validations.AvailableCountries;
+import com.allanweber.customers.authentication.JwtProperties;
+import com.allanweber.customers.validations.AvailableCountriesProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-@EnableConfigurationProperties(AvailableCountries.class)
+@EnableConfigurationProperties({AvailableCountriesProperties.class, JwtProperties.class})
 @SpringBootApplication
 public class CustomersApplication {
 
