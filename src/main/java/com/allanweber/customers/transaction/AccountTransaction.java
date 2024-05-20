@@ -26,6 +26,10 @@ public class AccountTransaction {
     public AccountTransaction() {
     }
 
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
     @Override
     public String toString() {
         return "CustomerTransaction{" +

@@ -57,6 +57,10 @@ public class Customer {
         return password;
     }
 
+    public List<CustomerAccount> getCustomerAccounts() {
+        return customerAccounts;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +

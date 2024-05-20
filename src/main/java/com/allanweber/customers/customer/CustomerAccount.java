@@ -28,6 +28,22 @@ public class CustomerAccount {
         this.currency = currency;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
     @Override
     public String toString() {
         return "CustomerAccount{" +

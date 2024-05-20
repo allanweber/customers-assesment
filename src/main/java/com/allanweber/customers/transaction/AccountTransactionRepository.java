@@ -9,4 +9,6 @@ import java.util.List;
 public interface AccountTransactionRepository extends CrudRepository<AccountTransaction, Integer> {
 
     List<AccountTransaction> findByAccount(Integer account);
+
+    boolean existsByAccount(Integer account);
 }
