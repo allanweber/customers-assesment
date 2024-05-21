@@ -1,0 +1,649 @@
+{
+	"info": {
+		"_postman_id": "1f82e58f-20c2-445e-bd60-0c1f9b68c9d4",
+		"name": "Customers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9011736"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test response\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api}}/health",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Signup",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"username\",  pm.collectionVariables.replaceIn(\"{{$randomUserName}}\"))\r",
+							"\r",
+							"const moment = require('moment');\r",
+							"const date = new Date().setFullYear(new Date().getFullYear() - 20);\r",
+							"pm.collectionVariables.set(\"dateOfBirth\", moment(date).format(\"DD-MM-yyyy\"));\r",
+							"\r",
+							" const index = _.random (0,1);\r",
+							" const countries = [\"NL\", \"BE\"]\r",
+							" pm.collectionVariables.set(\"country\", countries[index]);\r",
+							"\r",
+							"let postalCode = pm.collectionVariables.replaceIn(\"{{$randomIP}}\")\r",
+							"postalCode = postalCode.replaceAll('.','');\r",
+							"pm.collectionVariables.set(\"postalCode\",postalCode);\r",
+							"\r",
+							"pm.collectionVariables.set(\"houseNumber\", _.random (10,99999))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test response\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"\r",
+							"\tpm.expect(response.username).to.equal(pm.collectionVariables.get(\"username\"));\r",
+							"\tpm.expect(response.password).not.equal(null);\r",
+							"\r",
+							"\tpm.collectionVariables.set('password', response.password)\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\": \"{{username}}\",\r\n\t\"name\": \"{{$randomFirstName}} {{$randomLastName}}\",\r\n\t\"dateOfBirth\": \"{{dateOfBirth}}\",\r\n\t\"documentNumber\": \"{{$randomBankAccount}}\",\r\n\t\"address\": {\r\n\t\t\"country\": \"{{country}}\",\r\n\t\t\"postalCode\": \"{{postalCode}}\",\r\n\t\t\"houseNumber\": \"{{houseNumber}}\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api}}/register",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Invalid Signup",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test response\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"\r",
+							"\tpm.expect(response.errors).to.contains(\r",
+							"\t\t\"Document is required\",\r",
+							"\t\t\"Username is required\",\r",
+							"\t\t\"Address is required\",\r",
+							"\t\t\"Name is required\",\r",
+							"\t\t\"Date is required\"\r",
+							"\t);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api}}/register",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Minor is Invalid",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"const moment = require('moment');\r",
+							"const date = new Date().setFullYear(new Date().getFullYear() - 15);\r",
+							"pm.collectionVariables.set(\"dateOfBirth\", moment(date).format(\"DD-MM-yyyy\"));\r",
+							"\r",
+							" const index = _.random (0,1);\r",
+							" const countries = [\"NL\", \"BE\"]\r",
+							" pm.collectionVariables.set(\"country\", countries[index]);\r",
+							"\r",
+							"let postalCode = pm.collectionVariables.replaceIn(\"{{$randomIP}}\")\r",
+							"postalCode = postalCode.replaceAll('.','');\r",
+							"pm.collectionVariables.set(\"postalCode\",postalCode);\r",
+							"\r",
+							"pm.collectionVariables.set(\"houseNumber\", _.random (10,99999))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test response\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"\r",
+							"\tpm.expect(response.errors).to.contains(\r",
+							"\t\t\"You must be at least 18 years old\"\r",
+							"\t);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\": \"{{$randomUserName}}\",\r\n\t\"name\": \"{{$randomFirstName}} {{$randomLastName}}\",\r\n\t\"dateOfBirth\": \"{{dateOfBirth}}\",\r\n\t\"documentNumber\": \"{{$randomBankAccount}}\",\r\n\t\"address\": {\r\n\t\t\"country\": \"{{country}}\",\r\n\t\t\"postalCode\": \"{{postalCode}}\",\r\n\t\t\"houseNumber\": \"{{houseNumber}}\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api}}/register",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Invalid Signup Country",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const moment = require('moment');\r",
+							"const date = new Date().setFullYear(new Date().getFullYear() - 20);\r",
+							"pm.collectionVariables.set(\"dateOfBirth\", moment(date).format(\"DD-MM-yyyy\"));\r",
+							"\r",
+							"let postalCode = pm.collectionVariables.replaceIn(\"{{$randomIP}}\")\r",
+							"postalCode = postalCode.replaceAll('.','');\r",
+							"pm.collectionVariables.set(\"postalCode\",postalCode);\r",
+							"\r",
+							"pm.collectionVariables.set(\"houseNumber\", _.random (10,99999))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test response\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"\r",
+							"\tpm.expect(response.errors).to.contains(\r",
+							"\t\t\"Only customer from NL or BE are allowed\"\r",
+							"\t);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\": \"{{$randomUserName}}\",\r\n\t\"name\": \"{{$randomFirstName}} {{$randomLastName}}\",\r\n\t\"dateOfBirth\": \"{{dateOfBirth}}\",\r\n\t\"documentNumber\": \"{{$randomBankAccount}}\",\r\n\t\"address\": {\r\n\t\t\"country\": \"UK\",\r\n\t\t\"postalCode\": \"{{postalCode}}\",\r\n\t\t\"houseNumber\": \"{{houseNumber}}\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api}}/register",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer SignIn",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test response\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"\r",
+							"\tpm.expect(response.token).not.equal(null);\r",
+							"\r",
+							"\tpm.collectionVariables.set('token', response.token)\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\": \"{{username}}\",\r\n\t\"password\": \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api}}/logon",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"logon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Invalid username SignIn",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"  pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test response\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"\r",
+							"\tpm.expect(response.error).to.equal(\"Invalid username or password\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\": \"{{$randomUserName}}\",\r\n\t\"password\": \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api}}/logon",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"logon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Invalid password SignIn",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"  pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test response\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"\r",
+							"\tpm.expect(response.error).to.equal(\"Invalid username or password\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\": \"{{username}}\",\r\n\t\"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api}}/logon",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"logon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Accounts Overview",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{api}}/overview",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"overview"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Accounts No Token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"  pm.response.to.have.status(401);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api}}/overview",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"overview"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "dateOfBirth",
+			"value": ""
+		},
+		{
+			"key": "country",
+			"value": ""
+		},
+		{
+			"key": "postalCode",
+			"value": ""
+		},
+		{
+			"key": "houseNumber",
+			"value": ""
+		},
+		{
+			"key": "userName",
+			"value": ""
+		},
+		{
+			"key": "username",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
