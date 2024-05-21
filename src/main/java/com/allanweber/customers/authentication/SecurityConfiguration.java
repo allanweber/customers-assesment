@@ -1,5 +1,6 @@
 package com.allanweber.customers.authentication;
 
+import com.allanweber.customers.api.RateLimitRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,11 +19,13 @@ public class SecurityConfiguration {
     private final ServerAuthenticationExceptionEntryPoint serverAuthenticationExceptionEntryPoint;
     private final JwtProvider jwtProvider;
     private final UserPasswordAuthenticationManager authenticationManager;
+    private final RateLimitRequestFilter rateLimitRequestFilter;
 
-    public SecurityConfiguration(ServerAuthenticationExceptionEntryPoint serverAuthenticationExceptionEntryPoint, JwtProvider jwtProvider, UserPasswordAuthenticationManager authenticationManager) {
+    public SecurityConfiguration(ServerAuthenticationExceptionEntryPoint serverAuthenticationExceptionEntryPoint, JwtProvider jwtProvider, UserPasswordAuthenticationManager authenticationManager, RateLimitRequestFilter rateLimitRequestFilter) {
         this.serverAuthenticationExceptionEntryPoint = serverAuthenticationExceptionEntryPoint;
         this.jwtProvider = jwtProvider;
         this.authenticationManager = authenticationManager;
+        this.rateLimitRequestFilter = rateLimitRequestFilter;
     }
 
     @Bean
@@ -34,6 +37,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(getPublicPath()).permitAll()
                                 .anyRequest().authenticated()
                 )
+                .addFilterBefore(rateLimitRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtTokenAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
