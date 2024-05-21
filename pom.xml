@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.allanweber</groupId>
 	<artifactId>customers</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>customers</name>
 	<description>Customers Registry and Overview</description>
 	<properties>
