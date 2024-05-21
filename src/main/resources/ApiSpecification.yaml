@@ -1,0 +1,159 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Customers and Accounts
+  description: Register customers and give them account transations overview
+  contact:
+    email: a.cassianoweber@gmail.com
+    name: 'Allan Weber'
+    url: 'https://github.com/allanweber/customers-assesment'
+consumes:
+  - application/json
+produces:
+  - application/json
+basePath: /
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check status
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+                example: "UP"
+              groups:
+                type: array
+                example: ["liveness","readiness"]
+  /register:
+    post:
+      tags:
+        - Customer
+      summary: Register yourself as a Customer
+      parameters:
+        - name: requestBody
+          in: body
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                example: "user.name"
+              name:
+                type: string
+                example: "User Name"
+              dateOfBirth:
+                type: string
+                description: must be in the format dd-MM-yyyy
+                example: "99-99-9999"
+              documentNumber:
+                type: string
+                example: "123456789"
+              address:
+                type: object
+                properties:
+                  country:
+                    type: string
+                    example: "NL"
+                  postalCode:
+                    type: string
+                    example: "9999AA"
+                  houseNumber:
+                    type: string
+                    example: "123"
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              username:
+                type: string
+                example: "user.name"
+              password:
+                type: string
+                example: "123456789"
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Errors'
+  /logon:
+    post:
+      tags:
+        - Customer
+      summary: Access as a Customer
+      parameters:
+        - name: requestBody
+          in: body
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                example: "user.name"
+              password:
+                type: string
+                example: "123456789"
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              token:
+                type: string
+                example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...."
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Errors'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+  /overview:
+    get:
+      tags:
+        - Accounts
+      summary: Access as a Customer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                number:
+                  type: string
+                  example: "NL20ABNA4285309365"
+                type:
+                  type: string
+                  example: "payment"
+                currency:
+                  type: string
+                  example: "EUR"
+                balance:
+                  type: number
+                  example: 123.45
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+definitions:
+  Errors:
+    type: object
+    properties:
+      errors:
+        type: array
+        items:
+          type: string
+          example: "message"
+  Error:
+    type: object
+    properties:
+      error:
+        type: string
+        example: "message"

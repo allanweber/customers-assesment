@@ -46,7 +46,7 @@ public class SecurityConfiguration {
     }
 
     private String[] getPublicPath() {
-        String[] monitoring = {"/health/**", "/prometheus", "/metrics*/**"};
+        String[] monitoring = {"/health/**"};
         String[] authentication = {"/register", "/logon"};
         return Stream.of(monitoring, authentication).flatMap(Stream::of).toArray(String[]::new);
     }
